@@ -2,11 +2,11 @@ NAME = so_long
 CFILES = open_window.c
 O_DIR = OBJdir
 OFILES = $(addprefix $(O_DIR)/,$(CFILES:.c=.o))
-MLX_DIR = MLX42
-LIB = $(MLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
 FLAGS = -Wall -Wextra -Werror
-# HEADER = -I $
+HEADER = sl_header.h
 
+MLX_DIR = MLX42
+MLX_LIB = $(MLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 all: $(MLX_DIR) $(NAME)
 
@@ -15,12 +15,12 @@ $(MLX_DIR):
 	cmake $(MLX_DIR) -B $(MLX_DIR)/build && make -C $(MLX_DIR)/build -j4
 
 $(NAME): $(OFILES)
-	cc $(FLAGS) $(OFILES) $(LIB) -o $(NAME)
+	cc $(FLAGS) $(OFILES) $(MLX_LIB) -o $(NAME)
 
 $(O_DIR):
 	mkdir -p $@
 
-$(O_DIR)/%.o: %.c | $(O_DIR)
+$(O_DIR)/%.o: %.c $(HEADER) | $(O_DIR)
 	cc $(FLAGS) -c $< -o $@
 
 clean:
@@ -31,6 +31,6 @@ fclean: clean
 
 re: fclean all
 
-# .SILENT:
+.SILENT:
 
 .PHONY: all clean fclean re
