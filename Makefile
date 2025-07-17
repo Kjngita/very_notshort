@@ -8,16 +8,14 @@ FLAGS = -Wall -Wextra -Werror
 # HEADER = -I $
 
 
-all: $(NAME)
-
-$(NAME): $(OFILES) createlib
-	cc $(FLAGS) $(OFILES) $(LIB) -o $(NAME)
+all: $(MLX_DIR) $(NAME)
 
 $(MLX_DIR):
-	git clone https://github.com/codam-coding-college/MLX42.git $@
-
-createlib: $(MLX_DIR)
+	git clone https://github.com/codam-coding-college/MLX42 $(MLX_DIR)
 	cmake $(MLX_DIR) -B $(MLX_DIR)/build && make -C $(MLX_DIR)/build -j4
+
+$(NAME): $(OFILES)
+	cc $(FLAGS) $(OFILES) $(LIB) -o $(NAME)
 
 $(O_DIR):
 	mkdir -p $@
@@ -33,6 +31,6 @@ fclean: clean
 
 re: fclean all
 
-.SILENT:
+# .SILENT:
 
 .PHONY: all clean fclean re
