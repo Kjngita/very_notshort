@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 17:52:31 by gita              #+#    #+#             */
-/*   Updated: 2025/07/17 21:48:33 by gita             ###   ########.fr       */
+/*   Updated: 2025/07/17 22:34:46 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "MLX42/include/MLX42/MLX42.h"
+#include "MLX42/MLX42.h"
 
 #endif

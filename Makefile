@@ -3,7 +3,7 @@ CFILES = open_window.c
 O_DIR = OBJdir
 OFILES = $(addprefix $(O_DIR)/,$(CFILES:.c=.o))
 FLAGS = -Wall -Wextra -Werror
-HEADER = sl_header.h
+HEADER = -I sl_header.h -I $(MLX_DIR)/include 
 
 MLX_DIR = MLX42
 MLX_LIB = $(MLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
@@ -20,8 +20,8 @@ $(NAME): $(OFILES)
 $(O_DIR):
 	mkdir -p $@
 
-$(O_DIR)/%.o: %.c $(HEADER) | $(O_DIR)
-	cc $(FLAGS) -c $< -o $@
+$(O_DIR)/%.o: %.c | $(O_DIR)
+	cc $(FLAGS) -c $< -o $@ $(HEADER)
 
 clean:
 	rm -rf $(O_DIR) $(MLX_DIR)
