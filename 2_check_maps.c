@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sl_header.h                                        :+:      :+:    :+:   */
+/*   2_check_maps.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/17 17:52:31 by gita              #+#    #+#             */
-/*   Updated: 2025/07/19 16:53:10 by gita             ###   ########.fr       */
+/*   Created: 2025/07/19 16:42:29 by gita              #+#    #+#             */
+/*   Updated: 2025/07/19 17:01:56 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SL_HEADER_H
-# define SL_HEADER_H
+#include "sl_header.h"
 
-#include "MLX42/MLX42.h"
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
+/*
+map doesnt end with .ber
+GNL
+map is not rectangular
+map not enclosed
+map not having 1 P, 1 E, min 1 C
+flood fill map fail
 
-enum	e_err_code
+*/
+
+void check_map(char *map)
 {
-	NO_MAP,
-	MANY_MAPS,
-	INVALID_MAP
-};
 
-
-int	error_printing(int err_code);
-
-#endif
+}

@@ -16,6 +16,7 @@ $(MLX_DIR):
 
 $(NAME): $(OFILES)
 	cc $(FLAGS) $(OFILES) $(MLX_LIB) -o $(NAME)
+	echo "\033[33m-- 🎮 Game ready! ✅ --\033[0m"
 
 $(O_DIR):
 	mkdir -p $@
