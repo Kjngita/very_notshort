@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 17:52:31 by gita              #+#    #+#             */
-/*   Updated: 2025/07/19 16:53:10 by gita             ###   ########.fr       */
+/*   Updated: 2025/07/20 22:21:26 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define SL_HEADER_H
 
 #include "MLX42/MLX42.h"
+#include "libft.h"
+#include "get_next_line.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
