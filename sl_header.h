@@ -6,29 +6,30 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 17:52:31 by gita              #+#    #+#             */
-/*   Updated: 2025/07/20 22:21:26 by gita             ###   ########.fr       */
+/*   Updated: 2025/07/22 00:16:49 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SL_HEADER_H
 # define SL_HEADER_H
 
-#include "MLX42/MLX42.h"
-#include "libft.h"
-#include "get_next_line.h"
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
+# include "MLX42/MLX42.h"
+# include "libft.h"
+# include "get_next_line.h"
+# include <fcntl.h>
 
-enum	e_err_code
+
+typedef struct s_map
 {
-	NO_MAP,
-	MANY_MAPS,
-	INVALID_MAP
-};
+	char	**arr_bundle;
+	char	*row;
+	int		width;
+	int		height;
+}	t_map;
 
 
-int	error_printing(int err_code);
+void	error_printing(char *err_msg, t_map *map);
+
+void	check_map_extension(char *mapname);
 
 #endif

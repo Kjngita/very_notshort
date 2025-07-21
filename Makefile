@@ -1,14 +1,15 @@
 NAME = so_long
-CFILES = open_window.c
+CFILES = 1_main.c \
+	2_check_maps.c
 O_DIR = OBJdir
 OFILES = $(addprefix $(O_DIR)/,$(CFILES:.c=.o))
 
 FLAGS = -Wall -Wextra -Werror
-HEADERS = -I. -I$(MLX_DIR)/include  -I$(LIBFT_DIR)
+HEADERS = -I. -I$(MLX_DIR)/include -I$(LIBFT_DIR)
 MLX_DIR = MLX42
 MLX_LIB = $(MLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
-LIBFT_DIR = Libft
+LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
 all: $(MLX_DIR) $(LIBFT) $(NAME)
@@ -18,7 +19,7 @@ $(MLX_DIR):
 	cmake $(MLX_DIR) -B $(MLX_DIR)/build && make -C $(MLX_DIR)/build -j4
 
 $(LIBFT):
-	$(MAKE) -C $(LIBFT_DIR)
+	$(MAKE) all -C $(LIBFT_DIR)
 
 $(NAME): $(OFILES)
 	cc $(FLAGS) $(OFILES) $(LIBFT) $(MLX_LIB) -o $(NAME)
