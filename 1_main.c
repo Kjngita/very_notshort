@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 16:06:54 by gita              #+#    #+#             */
-/*   Updated: 2025/07/22 20:24:06 by gita             ###   ########.fr       */
+/*   Updated: 2025/07/22 20:45:58 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int main(int ac, char **av)
 	if (ac > 2)
 		error_printing("Too many maps, cannot choose X.x\n", NULL);
 	check_map_extension(av[1]);
-	printf("Main: check extension ok\n");  //DELETEEEEEEEEEEEE
 	game_map = create_map(av[1]);
 	printf("Main: create map ok\n");  //DELETEEEEEEEEEEEE
 	printf("Main: All seems good\n"); //DELETEEEEEEEEE

@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 17:52:31 by gita              #+#    #+#             */
-/*   Updated: 2025/07/22 19:33:54 by gita             ###   ########.fr       */
+/*   Updated: 2025/07/23 00:51:29 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,16 @@ typedef struct s_map
 	size_t	height;
 }	t_map;
 
+enum	err_code
 
 void	error_printing(char *err_msg, t_map *map);
-
-size_t	strlen_without_nl(const char *s);
 
 t_map	*create_map(char *mapfile);
 void	check_map_extension(char *mapname);
 void	get_map_size(t_map *map, char *mapfile);
 void	check_map_size(t_map *map);
+size_t	strlen_without_nl(const char *s);
+
+void	map_arr2d(t_map *map, char *mapfile);
 
 #endif
