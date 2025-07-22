@@ -1,10 +1,11 @@
 NAME = so_long
 CFILES = 1_main.c \
-	2_check_maps.c
+	2_create_map.c \
+	2_map_utils.c
 O_DIR = OBJdir
 OFILES = $(addprefix $(O_DIR)/,$(CFILES:.c=.o))
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g
 HEADERS = -I. -I$(MLX_DIR)/include -I$(LIBFT_DIR)
 MLX_DIR = MLX42
 MLX_LIB = $(MLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
