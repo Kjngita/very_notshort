@@ -29,7 +29,12 @@ typedef struct s_map
 	size_t	height;
 }	t_map;
 
-enum	err_code
+enum	e_err_code
+{
+	GNL_FAILED,
+
+
+};
 
 void	error_printing(char *err_msg, t_map *map);
 
@@ -40,5 +45,6 @@ void	check_map_size(t_map *map);
 size_t	strlen_without_nl(const char *s);
 
 void	map_arr2d(t_map *map, char *mapfile);
+bool	is_map_enclosed(t_map *map);
 
 #endif
