@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 19:00:34 by gita              #+#    #+#             */
-/*   Updated: 2025/07/23 00:39:34 by gita             ###   ########.fr       */
+/*   Updated: 2025/07/23 16:00:15 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_map	*create_map(char *mapfile)
 	map->row = NULL;
 	get_map_size(map, mapfile);
 	map_arr2d(map, mapfile);
-	if (is_map_enclosed(map) == false)
+	if (is_map_enclosed(map) == false || is_content_good(map) == false)
 		error_printing("Something fishy with this map T_T\n", map);
 	return (map);
 }

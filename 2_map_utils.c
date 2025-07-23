@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 19:34:24 by gita              #+#    #+#             */
-/*   Updated: 2025/07/23 00:51:01 by gita             ###   ########.fr       */
+/*   Updated: 2025/07/23 16:08:41 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,14 @@ void	map_arr2d(t_map *map, char *mapfile)
 	map->arr_bundle = ft_calloc(map->height + 1, sizeof(char *));
 	if (!map->arr_bundle)
 		close_fd_n_err_print("Map memory alloc failed =_=\n", map, fd);
+	i = 0;
 	while (i < map->height)
 	{
 		line = get_next_line(fd);
 		if (line == NULL)
 			close_fd_n_err_print("Map lines fetching failed =_=\n", map, fd);
 		end = strlen_without_nl(line);
-		line[end] = "\0";
+		line[end] = '\0';
 		map->arr_bundle[i] = ft_strdup(line);
 		if (map->arr_bundle[i] == NULL)
 			close_fd_n_err_print("Map coord duplicate failed =_=\n", map, fd);
@@ -56,17 +57,22 @@ void	map_arr2d(t_map *map, char *mapfile)
 
 bool	is_map_enclosed(t_map *map)
 {
-	int	x;
-	int	y;
+	size_t	x;
+	size_t	y;
 
-	x = 0;
 	y = 0;
-	while (x < map->width && y < map->height)
+	while (y < map->height)
 	{
-		if (map->arr_bundle[0][x] != 1 || map->arr_bundle[map->height - 1][x] != 1
-		|| map->arr_bundle[y][0] != 1 || map->arr_bundle[y][map->width - 1] != 1)
+		x = 0;
+		while (x < map->width)
+		{
+			printf("Got here x = %zu y = %zu\n", x, y);  //DELETEEEEEEE
+			if (map->arr_bundle[0][x] != 1 || map->arr_bundle[map->height - 1][x] != 1)
+				return (false);
+			x++;
+		}
+		if (map->arr_bundle[y][0] != 1 || map->arr_bundle[y][map->width - 1] != 1)
 			return (false);
-		x++;
 		y++;
 	}
 	return (true);
@@ -77,13 +83,14 @@ bool	is_content_good(t_map *map)
 	size_t	P_amount;
 	size_t	E_amount;
 	size_t	C_amount;
-	int		x;
-	int		y;
+	size_t	x;
+	size_t	y;
 
 	P_amount = 0;
 	E_amount = 0;
 	C_amount = 0;
 	y = 0;
+	printf("got here checking content\n");  //DELETEEEEEEE
 	while (y < map->height)
 	{
 		x = 0;

@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 17:52:31 by gita              #+#    #+#             */
-/*   Updated: 2025/07/23 00:51:29 by gita             ###   ########.fr       */
+/*   Updated: 2025/07/23 16:00:04 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,6 @@ typedef struct s_map
 	size_t	height;
 }	t_map;
 
-enum	e_err_code
-{
-	GNL_FAILED,
-
-
-};
-
 void	error_printing(char *err_msg, t_map *map);
 
 t_map	*create_map(char *mapfile);
@@ -46,5 +39,6 @@ size_t	strlen_without_nl(const char *s);
 
 void	map_arr2d(t_map *map, char *mapfile);
 bool	is_map_enclosed(t_map *map);
+bool	is_content_good(t_map *map);
 
 #endif
