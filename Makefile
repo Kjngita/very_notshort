@@ -1,5 +1,6 @@
 NAME = so_long
-CFILES = 1_main.c \
+CFILES = 0_cleaning.c \
+	1_main.c \
 	2_create_map.c \
 	2_map_utils.c
 O_DIR = OBJdir

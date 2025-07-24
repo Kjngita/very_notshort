@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 19:00:34 by gita              #+#    #+#             */
-/*   Updated: 2025/07/23 16:00:15 by gita             ###   ########.fr       */
+/*   Updated: 2025/07/24 18:04:26 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ t_map	*create_map(char *mapfile)
 	map->row = NULL;
 	get_map_size(map, mapfile);
 	map_arr2d(map, mapfile);
-	if (is_map_enclosed(map) == false || is_content_good(map) == false)
-		error_printing("Something fishy with this map T_T\n", map);
+	if (is_map_enclosed(map) == false)
+		error_printing("Map wall is breached T_T\n", map);
+	if (is_content_good(map) == false)
+		error_printing("Map content not good T_T\n", map);
 	return (map);
 }
 
@@ -92,7 +94,6 @@ void	check_map_size(t_map *map)
 	mlx_test = mlx_init(1, 1, "Monitor size check", false);
 	mlx_get_monitor_size(0, &scrn_w, &scrn_h);
 	mlx_terminate(mlx_test);
-	printf("scrn_w %i scrn_h %i\n", scrn_w, scrn_h);  //DELETEEEEEEE
 	if (map->width <= 2 || map->height <= 2 || (int32_t)map->width > scrn_w
 		|| (int32_t)map->height > scrn_h)
 		error_printing ("Map size unacceptable T_T\n", map);

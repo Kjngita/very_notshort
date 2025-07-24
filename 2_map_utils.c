@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 19:34:24 by gita              #+#    #+#             */
-/*   Updated: 2025/07/23 16:08:41 by gita             ###   ########.fr       */
+/*   Updated: 2025/07/24 19:23:01 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,11 @@ map not having 1 P, 1 E, min 1 C
 flood fill map fail
 */
 
-static void	close_fd_n_err_print(char *err_msg, t_map *map, int fd)
-{
-	close(fd);
-	error_printing(err_msg, map);	
-}
-
 void	map_arr2d(t_map *map, char *mapfile)
 {
 	int		fd;
 	size_t	i;
 	char	*line;
-	size_t	end;
 	
 	fd = open(mapfile, O_RDONLY);
 	if (fd < 0)
@@ -43,8 +36,7 @@ void	map_arr2d(t_map *map, char *mapfile)
 		line = get_next_line(fd);
 		if (line == NULL)
 			close_fd_n_err_print("Map lines fetching failed =_=\n", map, fd);
-		end = strlen_without_nl(line);
-		line[end] = '\0';
+		line[strlen_without_nl(line)] = '\0';
 		map->arr_bundle[i] = ft_strdup(line);
 		if (map->arr_bundle[i] == NULL)
 			close_fd_n_err_print("Map coord duplicate failed =_=\n", map, fd);
@@ -66,16 +58,28 @@ bool	is_map_enclosed(t_map *map)
 		x = 0;
 		while (x < map->width)
 		{
-			printf("Got here x = %zu y = %zu\n", x, y);  //DELETEEEEEEE
-			if (map->arr_bundle[0][x] != 1 || map->arr_bundle[map->height - 1][x] != 1)
+			if (map->arr_bundle[0][x] != '1' || map->arr_bundle[map->height - 1][x] != '1')
 				return (false);
 			x++;
 		}
-		if (map->arr_bundle[y][0] != 1 || map->arr_bundle[y][map->width - 1] != 1)
+		if (map->arr_bundle[y][0] != '1' || map->arr_bundle[y][map->width - 1] != '1')
 			return (false);
 		y++;
 	}
 	return (true);
+}
+
+static void	count_elem(char	elem, size_t *P, size_t *E, size_t *C)
+{
+	P = 0;
+	E = 0;
+	C = 0;
+	if (elem == 'P')
+		P++;
+	if (elem == 'E')
+		E++;
+	if (elem == 'C')
+		C++;
 }
 
 bool	is_content_good(t_map *map)
@@ -86,30 +90,26 @@ bool	is_content_good(t_map *map)
 	size_t	x;
 	size_t	y;
 
-	P_amount = 0;
-	E_amount = 0;
-	C_amount = 0;
 	y = 0;
-	printf("got here checking content\n");  //DELETEEEEEEE
 	while (y < map->height)
 	{
 		x = 0;
 		while (x < map->width)
 		{
-			if (map->arr_bundle[y][x] == 'P')
-				P_amount++;
-			if (map->arr_bundle[y][x] == 'E')
-				E_amount++;
-			if (map->arr_bundle[y][x] == 'C')
-				C_amount++;
-			if (map->arr_bundle[y][x] != 'P' || map->arr_bundle[y][x] != 'E'
-				|| map->arr_bundle[y][x] != 'C' || map->arr_bundle[y][x] != '0'
-				|| map->arr_bundle[y][x] != '1')
+			if (!(map->arr_bundle[y][x] == 'P' || map->arr_bundle[y][x] == 'E'
+				|| map->arr_bundle[y][x] == 'C' || map->arr_bundle[y][x] == '0'
+				|| map->arr_bundle[y][x] == '1'))
 				return (false);
+			else
+			{
+				printf("P=%zu E=%zu C=%zu\n", P_amount, E_amount, C_amount);
+				count_elem(map->arr_bundle[y][x], &P_amount, &E_amount, &C_amount);
+			}
 			x++;
 		}
 		y++;
 	}
+	printf("P=%zu E=%zu C=%zu\n", P_amount, E_amount, C_amount);
 	if (P_amount != 1 || E_amount != 1 || C_amount < 1)
 		return (false);
 	return (true);
