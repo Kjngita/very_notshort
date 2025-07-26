@@ -71,9 +71,6 @@ bool	is_map_enclosed(t_map *map)
 
 static void	count_elem(char	elem, size_t *P, size_t *E, size_t *C)
 {
-	P = 0;
-	E = 0;
-	C = 0;
 	if (elem == 'P')
 		P++;
 	if (elem == 'E')
@@ -84,12 +81,15 @@ static void	count_elem(char	elem, size_t *P, size_t *E, size_t *C)
 
 bool	is_content_good(t_map *map)
 {
-	size_t	P_amount;
-	size_t	E_amount;
-	size_t	C_amount;
+	size_t	*P_amount;
+	size_t	*E_amount;
+	size_t	*C_amount;
 	size_t	x;
 	size_t	y;
 
+	P_amount = 0;
+	E_amount = 0;
+	C_amount = 0;
 	y = 0;
 	while (y < map->height)
 	{
@@ -102,15 +102,15 @@ bool	is_content_good(t_map *map)
 				return (false);
 			else
 			{
-				printf("P=%zu E=%zu C=%zu\n", P_amount, E_amount, C_amount);
-				count_elem(map->arr_bundle[y][x], &P_amount, &E_amount, &C_amount);
+				//printf("2. P=%zu E=%zu C=%zu\n", *P_amount, *E_amount, *C_amount);
+				count_elem(map->arr_bundle[y][x], P_amount, E_amount, C_amount);
 			}
 			x++;
 		}
 		y++;
 	}
-	printf("P=%zu E=%zu C=%zu\n", P_amount, E_amount, C_amount);
-	if (P_amount != 1 || E_amount != 1 || C_amount < 1)
+	printf("3. P=%zu E=%zu C=%zu\n", *P_amount, *E_amount, *C_amount);
+	if (*P_amount != 1 || *E_amount != 1 || *C_amount < 1)
 		return (false);
 	return (true);
 }
