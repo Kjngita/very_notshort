@@ -2,7 +2,8 @@ NAME = so_long
 CFILES = 0_cleaning.c \
 	1_main.c \
 	2_create_map.c \
-	2_map_utils.c
+	2_map_utils.c \
+	2_path_check.c
 O_DIR = OBJdir
 OFILES = $(addprefix $(O_DIR)/,$(CFILES:.c=.o))
 

@@ -6,13 +6,13 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 18:22:20 by gita              #+#    #+#             */
-/*   Updated: 2025/07/27 19:30:47 by gita             ###   ########.fr       */
+/*   Updated: 2025/07/27 20:38:48 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sl_header.h"
 
-static void	clean_wipe(void *freethis)
+void	clean_wipe(void *freethis)
 {
 	free (freethis);
 	freethis = NULL;

@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 19:34:24 by gita              #+#    #+#             */
-/*   Updated: 2025/07/27 19:32:13 by gita             ###   ########.fr       */
+/*   Updated: 2025/07/27 21:01:18 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	map_arr2d(t_map *map, char *mapfile)
 		if (line == NULL)
 			close_fd_n_err_print("Map lines fetching failed =_=\n", map, fd);
 		line[strlen_without_nl(line)] = '\0';
-		map->arr_bundle[i] = ft_strdup(line);
+		map->arr_bundle[i] = ft_strdup(line); //free line
 		if (map->arr_bundle[i] == NULL)
 			close_fd_n_err_print("Map coord duplicate failed =_=\n", map, fd);
 		free (line);
@@ -58,11 +58,13 @@ bool	is_map_enclosed(t_map *map)
 		x = 0;
 		while (x < map->width)
 		{
-			if (map->arr_bundle[0][x] != '1' || map->arr_bundle[map->height - 1][x] != '1')
+			if (map->arr_bundle[0][x] != '1'
+				|| map->arr_bundle[map->height - 1][x] != '1')
 				return (false);
 			x++;
 		}
-		if (map->arr_bundle[y][0] != '1' || map->arr_bundle[y][map->width - 1] != '1')
+		if (map->arr_bundle[y][0] != '1'
+			|| map->arr_bundle[y][map->width - 1] != '1')
 			return (false);
 		y++;
 	}
@@ -109,3 +111,25 @@ void	count_elem(char	elem, size_t *P, size_t *E, size_t *C)
 		(*C)++;
 }
 
+void	player_pos(t_map *map)
+{
+	size_t		x;
+	size_t		y;
+
+	y = 0;
+	while (y < map->height)
+	{
+		x = 0;
+		while (x < map->width)
+		{
+			if (map->arr_bundle[y][x] == 'P')
+			{
+				map->player_x = x;
+				map->player_y = y;
+				return ;
+			}
+			x++;
+		}
+		y++;
+	}
+}

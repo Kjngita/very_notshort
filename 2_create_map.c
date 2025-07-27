@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 19:00:34 by gita              #+#    #+#             */
-/*   Updated: 2025/07/27 19:30:15 by gita             ###   ########.fr       */
+/*   Updated: 2025/07/27 20:28:58 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ t_map	*create_map(char *mapfile)
 	if (is_content_good(map) == false)
 		error_printing("Map content not good T_T\n", map);
 	check_map_too_large(map);
+	player_pos(map);
 	return (map);
 }
 
