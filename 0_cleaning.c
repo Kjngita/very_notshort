@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 18:22:20 by gita              #+#    #+#             */
-/*   Updated: 2025/07/27 19:17:25 by gita             ###   ########.fr       */
+/*   Updated: 2025/07/27 19:30:47 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	error_printing(char *err_msg, t_map *map)
 				clean_wipe(map->arr_bundle[i++]);
 			clean_wipe(map->arr_bundle);
 		}
+		if (map->row)
+			clean_wipe(map->row);
 	}
 	clean_wipe(map);
 	ft_putstr_fd("Error\n", 2);

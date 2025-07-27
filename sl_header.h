@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 17:52:31 by gita              #+#    #+#             */
-/*   Updated: 2025/07/27 19:17:11 by gita             ###   ########.fr       */
+/*   Updated: 2025/07/27 19:30:00 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 typedef struct s_map
 {
 	char	**arr_bundle;
+	char	*row;
 	size_t	width;
 	size_t	height;
 }	t_map;
