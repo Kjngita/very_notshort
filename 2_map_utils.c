@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 19:34:24 by gita              #+#    #+#             */
-/*   Updated: 2025/07/24 19:23:01 by gita             ###   ########.fr       */
+/*   Updated: 2025/07/27 19:15:55 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*
 map not enclosed
-map not having 1 P, 1 E, min 1 C
+map not having 1 P, 1 E, min 1 C, having foreign chars
 flood fill map fail
 */
 
@@ -69,21 +69,12 @@ bool	is_map_enclosed(t_map *map)
 	return (true);
 }
 
-static void	count_elem(char	elem, size_t *P, size_t *E, size_t *C)
-{
-	if (elem == 'P')
-		P++;
-	if (elem == 'E')
-		E++;
-	if (elem == 'C')
-		C++;
-}
 
 bool	is_content_good(t_map *map)
 {
-	size_t	*P_amount;
-	size_t	*E_amount;
-	size_t	*C_amount;
+	size_t	P_amount;
+	size_t	E_amount;
+	size_t	C_amount;
 	size_t	x;
 	size_t	y;
 
@@ -96,23 +87,26 @@ bool	is_content_good(t_map *map)
 		x = 0;
 		while (x < map->width)
 		{
-			if (!(map->arr_bundle[y][x] == 'P' || map->arr_bundle[y][x] == 'E'
-				|| map->arr_bundle[y][x] == 'C' || map->arr_bundle[y][x] == '0'
-				|| map->arr_bundle[y][x] == '1'))
+			if (ft_strchr("PEC01", map->arr_bundle[y][x]) == NULL)
 				return (false);
-			else
-			{
-				//printf("2. P=%zu E=%zu C=%zu\n", *P_amount, *E_amount, *C_amount);
-				count_elem(map->arr_bundle[y][x], P_amount, E_amount, C_amount);
-			}
+			count_elem(map->arr_bundle[y][x], &P_amount, &E_amount, &C_amount);
 			x++;
 		}
 		y++;
 	}
-	printf("3. P=%zu E=%zu C=%zu\n", *P_amount, *E_amount, *C_amount);
-	if (*P_amount != 1 || *E_amount != 1 || *C_amount < 1)
+	if (P_amount != 1 || E_amount != 1 || C_amount < 1)
 		return (false);
 	return (true);
+}
+
+void	count_elem(char	elem, size_t *P, size_t *E, size_t *C)
+{	
+	if (elem == 'P')
+		(*P)++;
+	if (elem == 'E')
+		(*E)++;
+	if (elem == 'C')
+		(*C)++;
 }
 
 

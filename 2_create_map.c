@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 19:00:34 by gita              #+#    #+#             */
-/*   Updated: 2025/07/24 18:04:26 by gita             ###   ########.fr       */
+/*   Updated: 2025/07/27 19:05:11 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ t_map	*create_map(char *mapfile)
 		error_printing("Map wall is breached T_T\n", map);
 	if (is_content_good(map) == false)
 		error_printing("Map content not good T_T\n", map);
+	check_map_too_large(map);
 	return (map);
 }
 
@@ -67,10 +68,12 @@ void	get_map_size(t_map *map, char *mapfile)
 			break ;
 		map->height++;
 		if (strlen_without_nl(line) != map->width)
+		{
+			free (line);
 			error_printing ("Map is not rectangle T_T\n", map);
+		}
 	}
 	close(fd);
-	check_map_size(map);
 }
 
 size_t	strlen_without_nl(const char *s)
@@ -85,7 +88,7 @@ size_t	strlen_without_nl(const char *s)
 	return (i);
 }
 
-void	check_map_size(t_map *map)
+void	check_map_too_large(t_map *map)
 {
 	int32_t	scrn_w;
 	int32_t scrn_h;
@@ -94,7 +97,6 @@ void	check_map_size(t_map *map)
 	mlx_test = mlx_init(1, 1, "Monitor size check", false);
 	mlx_get_monitor_size(0, &scrn_w, &scrn_h);
 	mlx_terminate(mlx_test);
-	if (map->width <= 2 || map->height <= 2 || (int32_t)map->width > scrn_w
-		|| (int32_t)map->height > scrn_h)
+	if ((int32_t)map->width > scrn_w || (int32_t)map->height > scrn_h)
 		error_printing ("Map size unacceptable T_T\n", map);
 }
