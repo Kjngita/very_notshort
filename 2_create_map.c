@@ -6,16 +6,11 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 19:00:34 by gita              #+#    #+#             */
-/*   Updated: 2025/07/27 20:28:58 by gita             ###   ########.fr       */
+/*   Updated: 2025/07/28 22:45:51 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sl_header.h"
-
-/*
-map doesnt end with .ber
-map is too small/too big/not rectangular
-*/
 
 void	check_map_extension(char *mapname)
 {
@@ -36,15 +31,18 @@ t_map	*create_map(char *mapfile)
 	if (map == NULL)
 		error_printing("Map creation failed T_T\n", map);
 	map->arr_bundle = NULL;
-	map->row = NULL;
+	map->arr_1line = NULL;
 	get_map_size(map, mapfile);
 	map_arr2d(map, mapfile);
+	map_arr1d(map);
 	if (is_map_enclosed(map) == false)
 		error_printing("Map wall is breached T_T\n", map);
 	if (is_content_good(map) == false)
 		error_printing("Map content not good T_T\n", map);
-	check_map_too_large(map);
 	player_pos(map);
+	if (is_path_avail(map) == false)
+		error_printing("No valid path T_T\n", map);
+	check_map_too_large(map);
 	return (map);
 }
 
@@ -99,5 +97,5 @@ void	check_map_too_large(t_map *map)
 	mlx_get_monitor_size(0, &scrn_w, &scrn_h);
 	mlx_terminate(mlx_test);
 	if ((int32_t)map->width > scrn_w || (int32_t)map->height > scrn_h)
-		error_printing ("Map size unacceptable T_T\n", map);
+		error_printing ("Map larger than monitor T_T\n", map);
 }

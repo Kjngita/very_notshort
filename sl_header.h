@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 17:52:31 by gita              #+#    #+#             */
-/*   Updated: 2025/07/27 20:38:59 by gita             ###   ########.fr       */
+/*   Updated: 2025/07/28 20:21:01 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,16 @@
 typedef struct s_map
 {
 	char	**arr_bundle;
-	char	*row;
+	char	*arr_1line;
 	size_t	width;
 	size_t	height;
 	size_t	player_x;
 	size_t	player_y;
+	size_t	C_total;
 }	t_map;
 
-void	clean_wipe(void *freethis);
+void	clean_free(void *trash);
+void	free_map(t_map *map);
 void	error_printing(char *err_msg, t_map *map);
 void	close_fd_n_err_print(char *err_msg, t_map *map, int fd);
 
@@ -42,9 +44,12 @@ void	check_map_too_large(t_map *map);
 size_t	strlen_without_nl(const char *s);
 
 void	map_arr2d(t_map *map, char *mapfile);
+void	map_arr1d(t_map *map);
 bool	is_map_enclosed(t_map *map);
 bool	is_content_good(t_map *map);
 void	count_elem(char	elem, size_t *P, size_t *E, size_t *C);
+
 void	player_pos(t_map *map);
+bool	is_path_avail(t_map *map);
 
 #endif

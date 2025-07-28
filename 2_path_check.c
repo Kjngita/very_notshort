@@ -6,11 +6,34 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 19:20:09 by gita              #+#    #+#             */
-/*   Updated: 2025/07/27 21:13:39 by gita             ###   ########.fr       */
+/*   Updated: 2025/07/28 22:45:23 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sl_header.h"
+
+void	player_pos(t_map *map)
+{
+	size_t		x;
+	size_t		y;
+
+	y = 0;
+	while (y < map->height)
+	{
+		x = 0;
+		while (x < map->width)
+		{
+			if (map->arr_bundle[y][x] == 'P')
+			{
+				map->player_x = x;
+				map->player_y = y;
+				return ;
+			}
+			x++;
+		}
+		y++;
+	}
+}
 
 static t_map	*copy_map(t_map *map)
 {
@@ -19,19 +42,20 @@ static t_map	*copy_map(t_map *map)
 
 	copied_map = ft_calloc(1, sizeof(t_map));
 	if (copied_map == NULL)
-		error_printing("Could not initiate copy map >_<\n", map);
-	copied_map->height = map->height;
-	copied_map->width = map->width;
+		return (NULL);
+	copied_map->arr_bundle = ft_calloc(map->height + 1, sizeof (char*));
+	if (copied_map->arr_bundle == NULL)
+	{
+		free_map(copied_map);
+		return (NULL);
+	}
 	i = 0;
 	while (i < map->height)
 	{
 		copied_map->arr_bundle[i] = ft_strdup(map->arr_bundle[i]);
 		if (copied_map->arr_bundle[i] == NULL)
 		{
-			while (i >= 0)
-				if (copied_map->arr_bundle[i])
-					clean_wipe(copied_map->arr_bundle[i--]);
-			clean_wipe(copied_map->arr_bundle);
+			free_map(copied_map);
 			return (NULL);
 		}
 		i++;
@@ -40,7 +64,7 @@ static t_map	*copy_map(t_map *map)
 	return (copied_map);
 }
 
-void	flood_fill(t_map *map_copy, size_t x, size_t y)
+static void	flood_fill(t_map *map_copy, size_t x, size_t y)
 {
 	if (x < 0 || y < 0 || x > map_copy->width - 1 || y > map_copy->height - 1)
 		return ;
@@ -56,10 +80,25 @@ void	flood_fill(t_map *map_copy, size_t x, size_t y)
 bool	is_path_avail(t_map *map)
 {
 	t_map	*clone;
+	size_t	i;
 
 	clone = copy_map(map);
 	if (clone == NULL)
 		error_printing("Could not copy map line >_<\n", map);
 	flood_fill(clone, map->player_x, map->player_y);
-	//check clone if E or C left -> fail
+	clone->height = map->height;
+	clone->arr_1line = NULL;
+	map_arr1d(clone);
+	i = 0;
+	while (clone->arr_1line[i])
+	{
+		if (clone->arr_1line[i] == 'E' || clone->arr_1line[i] == 'C')
+		{
+			free_map(clone);
+			return (false);
+		}
+		i++;
+	}
+	free_map(clone);
+	return (true);
 }
