@@ -3,11 +3,12 @@ CFILES = 0_cleaning.c \
 	1_main.c \
 	2_create_map.c \
 	2_map_utils.c \
-	2_path_check.c
-O_DIR = OBJdir
+	2_path_check.c \
+	3_mlx_start.c
+O_DIR = objdir
 OFILES = $(addprefix $(O_DIR)/,$(CFILES:.c=.o))
 
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -Werror
 HEADERS = -I. -I$(MLX_DIR)/include -I$(LIBFT_DIR)
 MLX_DIR = MLX42
 MLX_LIB = $(MLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm

@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 19:00:34 by gita              #+#    #+#             */
-/*   Updated: 2025/07/28 22:45:51 by gita             ###   ########.fr       */
+/*   Updated: 2025/07/30 18:15:01 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	check_map_too_large(t_map *map)
 	mlx_test = mlx_init(1, 1, "Monitor size check", false);
 	mlx_get_monitor_size(0, &scrn_w, &scrn_h);
 	mlx_terminate(mlx_test);
-	if ((int32_t)map->width > scrn_w || (int32_t)map->height > scrn_h)
+	if ((int32_t)map->width * TILE_SIZE > scrn_w
+		|| (int32_t)map->height * TILE_SIZE > scrn_h)
 		error_printing ("Map larger than monitor T_T\n", map);
 }

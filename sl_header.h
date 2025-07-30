@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 17:52:31 by gita              #+#    #+#             */
-/*   Updated: 2025/07/28 20:21:01 by gita             ###   ########.fr       */
+/*   Updated: 2025/07/30 23:35:48 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "get_next_line.h"
 # include <fcntl.h>
 
+# define TILE_SIZE 64
 
 typedef struct s_map
 {
@@ -31,6 +32,18 @@ typedef struct s_map
 	size_t	player_y;
 	size_t	C_total;
 }	t_map;
+
+typedef struct s_game
+{
+	mlx_t		*window;
+	mlx_image_t	*floor;
+	mlx_image_t	*wall;
+	mlx_image_t	*player;
+	mlx_image_t	*exit;
+	mlx_image_t	*no_exit;
+	mlx_image_t	*collectible;
+}	t_game;
+
 
 void	clean_free(void *trash);
 void	free_map(t_map *map);
@@ -52,4 +65,6 @@ void	count_elem(char	elem, size_t *P, size_t *E, size_t *C);
 void	player_pos(t_map *map);
 bool	is_path_avail(t_map *map);
 
+t_game	*start_game(t_map *map);
+void	load_image(t_game *game_elem, t_map *map);
 #endif

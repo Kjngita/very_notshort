@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 19:20:09 by gita              #+#    #+#             */
-/*   Updated: 2025/07/28 22:45:23 by gita             ###   ########.fr       */
+/*   Updated: 2025/07/30 16:06:29 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static t_map	*copy_map(t_map *map)
 
 static void	flood_fill(t_map *map_copy, size_t x, size_t y)
 {
-	if (x < 0 || y < 0 || x > map_copy->width - 1 || y > map_copy->height - 1)
+	if (x > map_copy->width - 1 || y > map_copy->height - 1)
 		return ;
 	if (map_copy->arr_bundle[y][x] == '1' || map_copy->arr_bundle[y][x] == 'F')
 		return ;
