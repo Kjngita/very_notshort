@@ -24,8 +24,8 @@ int main(int ac, char **av)
 	check_map_extension(av[1]);
 	map = create_map(av[1]);
 	game_elem = start_game(map);
-	load_image(game_elem, map);
-
+	load_image_n_spread_floor(game_elem, map);
+	show_img_on_window(game_elem, map);
 	mlx_loop(game_elem->window);
 	mlx_terminate(game_elem->window);
 	return (0);

@@ -66,5 +66,6 @@ void	player_pos(t_map *map);
 bool	is_path_avail(t_map *map);
 
 t_game	*start_game(t_map *map);
-void	load_image(t_game *game_elem, t_map *map);
+void	load_image_n_spread_floor(t_game *game_elem, t_map *map);
+void	show_img_on_window(t_game *game_elem, t_map *map);
 #endif

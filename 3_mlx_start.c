@@ -44,21 +44,20 @@ static mlx_image_t	*load_textures(t_game *game_elem, char *img_path)
 	return(product);
 }
 
-void	load_image(t_game *game_elem, t_map *map)
+void	load_image_n_spread_floor(t_game *game_elem, t_map *map)
 {
 	size_t	x;
 	size_t	y;
 
 	game_elem->floor = load_textures(game_elem, "./textures/floor.png");
-	// game_elem->wall = load_textures(game_elem, "./textures/wall.png");
+	game_elem->wall = load_textures(game_elem, "./textures/wall.png");
 	game_elem->player = load_textures(game_elem, "./textures/player.png");
-	// game_elem->exit = load_textures(game_elem, "./textures/exit.png");
-	// game_elem->no_exit = load_textures(game_elem, "./textures/no_exit.png");
+	game_elem->exit = load_textures(game_elem, "./textures/exit.png");
+	game_elem->no_exit = load_textures(game_elem, "./textures/no_exit.png");
 	game_elem->collectible = load_textures(game_elem, "./textures/collect.png");
-	// if (game_elem->floor == NULL || game_elem->wall == NULL
-	// 	|| game_elem->player == NULL || game_elem->exit == NULL
-	// 	|| game_elem->no_exit == NULL || game_elem->collectible == NULL)
-	if (game_elem->floor == NULL || game_elem->player == NULL || game_elem->collectible == NULL)
+	if (game_elem->floor == NULL || game_elem->wall == NULL
+		|| game_elem->player == NULL || game_elem->exit == NULL
+		|| game_elem->no_exit == NULL || game_elem->collectible == NULL)
 		error_printing("Could not load image ;_;\n", map);
 	y = 0;
 	while (y < map->height)
@@ -67,6 +66,31 @@ void	load_image(t_game *game_elem, t_map *map)
 		while (x < map->width)
 		{
 			mlx_image_to_window(game_elem->window, game_elem->floor, x * TILE_SIZE, y * TILE_SIZE);
+			x++;
+		}
+		y++;
+	}
+}
+
+void	show_img_on_window(t_game *game_elem, t_map *map)
+{
+	size_t	x;
+	size_t	y;
+
+	y = 0;
+	while (y < map->height)
+	{
+		x = 0;
+		while (x < map->width)
+		{
+			if (map->arr_bundle[y][x] == '1')
+				mlx_image_to_window(game_elem->window, game_elem->wall, x * TILE_SIZE, y * TILE_SIZE);
+			if (map->arr_bundle[y][x] == 'P')
+				mlx_image_to_window(game_elem->window, game_elem->player, x * TILE_SIZE, y * TILE_SIZE);
+			if (map->arr_bundle[y][x] == 'E')
+				mlx_image_to_window(game_elem->window, game_elem->no_exit, x * TILE_SIZE, y * TILE_SIZE);
+			if (map->arr_bundle[y][x] == 'C')
+				mlx_image_to_window(game_elem->window, game_elem->collectible, x * TILE_SIZE, y * TILE_SIZE);
 			x++;
 		}
 		y++;

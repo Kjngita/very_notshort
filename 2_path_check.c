@@ -66,8 +66,6 @@ static t_map	*copy_map(t_map *map)
 
 static void	flood_fill(t_map *map_copy, size_t x, size_t y)
 {
-	if (x > map_copy->width - 1 || y > map_copy->height - 1)
-		return ;
 	if (map_copy->arr_bundle[y][x] == '1' || map_copy->arr_bundle[y][x] == 'F')
 		return ;
 	map_copy->arr_bundle[y][x] = 'F';
