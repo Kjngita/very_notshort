@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 17:52:31 by gita              #+#    #+#             */
-/*   Updated: 2025/08/01 20:40:55 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/01 23:57:23 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ typedef struct s_game
 
 void	clean_free(void *trash);
 void	free_map(t_map *map);
-void	error_printing(char *err_msg, t_map *map);
+void	free_game(t_game *game);
+void	error_print_n_exit(char *err_msg, t_map *map);
 void	close_fd_n_err_print(char *err_msg, t_map *map, int fd);
 
 t_map	*create_map(char *mapfile);
@@ -67,9 +68,11 @@ void	player_pos(t_map *map);
 bool	is_path_avail(t_map *map);
 
 void	start_game(t_game *game);
-void	load_image_n_spread_floor(t_game *game);
+void	load_images(t_game *game);
+void	spread_floor_instances(t_game *game);
 void	show_instances_on_window(t_game *game);
 
 void	button_smash(mlx_key_data_t key_in_use, void *game_data);
+void	do_the_move(t_game *game, int move_x, int move_y);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 19:34:24 by gita              #+#    #+#             */
-/*   Updated: 2025/07/28 22:45:32 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/01 23:24:06 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	map_arr1d(t_map *map)
 	{
 		line = gnl_strjoin(map->arr_1line, map->arr_bundle[i]);
 		if (line == NULL)
-			error_printing("Could not copy map line =_=\n", map);
+			error_print_n_exit("Could not copy map line =_=\n", map);
 		free(map->arr_1line);
 		map->arr_1line = line;
 		i++;

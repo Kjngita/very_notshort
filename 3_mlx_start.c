@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 18:29:22 by gita              #+#    #+#             */
-/*   Updated: 2025/08/01 20:40:40 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/01 23:47:35 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,20 @@
 void	start_game(t_game *game)
 {
 	if (!game || !game->map)
-		error_printing("Could not start game -.-\n", game->map);
+		error_print_n_exit("Could not start game -.-\n", game->map);
 	game->window = mlx_init(game->map->width * TILE_SIZE,
-		game->map->height * TILE_SIZE, "so_long", false);
+		game->map->height * TILE_SIZE, "Snow Whisker", false);
 	if (game->window == NULL)
-		error_printing("Could not open game window X.x\n", game->map);
-
+	{
+		free_game(game);
+		error_print_n_exit("Could not open game window X.x\n", game->map);
+	}
+	load_images(game);
+	spread_floor_instances(game);
+	show_instances_on_window(game);
 }
 
-static mlx_image_t	*load_textures(t_game *game, char *img_path)
+static mlx_image_t	*load_texture(t_game *game, char *img_path)
 {
 	mlx_texture_t	*vessel;
 	mlx_image_t		*product;
@@ -41,21 +46,28 @@ static mlx_image_t	*load_textures(t_game *game, char *img_path)
 	return(product);
 }
 
-void	load_image_n_spread_floor(t_game *game)
+void	load_images(t_game *game)
+{
+	game->floor = load_texture(game, "./textures/floor.png");
+	game->wall = load_texture(game, "./textures/wall.png");
+	game->player = load_texture(game, "./textures/player.png");
+	game->exit = load_texture(game, "./textures/exit.png");
+	game->no_exit = load_texture(game, "./textures/no_exit.png");
+	game->collectible = load_texture(game, "./textures/collect.png");
+	if (game->floor == NULL || game->wall == NULL
+		|| game->player == NULL || game->exit == NULL
+		|| game->no_exit == NULL || game->collectible == NULL)
+	{
+		free_game(game);
+		error_print_n_exit("Could not load image ;_;\n", game->map);
+	}
+}
+
+void	spread_floor_instances(t_game *game)
 {
 	size_t	x;
 	size_t	y;
 
-	game->floor = load_textures(game, "./textures/floor.png");
-	game->wall = load_textures(game, "./textures/wall.png");
-	game->player = load_textures(game, "./textures/player.png");
-	game->exit = load_textures(game, "./textures/exit.png");
-	game->no_exit = load_textures(game, "./textures/no_exit.png");
-	game->collectible = load_textures(game, "./textures/collect.png");
-	if (game->floor == NULL || game->wall == NULL
-		|| game->player == NULL || game->exit == NULL
-		|| game->no_exit == NULL || game->collectible == NULL)
-		error_printing("Could not load image ;_;\n", game->map);
 	y = 0;
 	while (y < game->map->height)
 	{

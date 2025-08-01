@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 18:22:20 by gita              #+#    #+#             */
-/*   Updated: 2025/07/28 22:28:14 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/01 23:39:56 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,41 @@ void	free_map(t_map *map)
 		clean_free(map);
 }
 
-void	error_printing(char *err_msg, t_map *map)
+void	free_game(t_game *game)
 {
-	free_map(map);
-	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd(err_msg, 2);
+	if (!game)
+		return ;
+	if (game->map)
+		free_map(game->map);
+	if (game->floor)
+		mlx_delete_image(game->window, game->floor);
+	if (game->wall)
+		mlx_delete_image(game->window, game->wall);
+	if (game->player)
+		mlx_delete_image(game->window, game->player);
+	if (game->exit)
+		mlx_delete_image(game->window, game->exit);
+	if (game->collectible)
+		mlx_delete_image(game->window, game->collectible);
+	if (game->window)
+		mlx_terminate(game->window);
+	clean_free(game);
+}
+
+void	error_print_n_exit(char *err_msg, t_map *map)
+{
+	if (map)
+		free_map(map);
+	if (err_msg)
+	{
+		ft_putstr_fd("Error\n", 2);
+		ft_putstr_fd(err_msg, 2);
+	}
 	exit (1);
 }
 
 void	close_fd_n_err_print(char *err_msg, t_map *map, int fd)
 {
 	close(fd);
-	error_printing(err_msg, map);	
+	error_print_n_exit(err_msg, map);	
 }

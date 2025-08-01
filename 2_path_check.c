@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 19:20:09 by gita              #+#    #+#             */
-/*   Updated: 2025/07/30 16:06:29 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/01 23:24:16 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ bool	is_path_avail(t_map *map)
 
 	clone = copy_map(map);
 	if (clone == NULL)
-		error_printing("Could not copy map line >_<\n", map);
+		error_print_n_exit("Could not copy map line >_<\n", map);
 	flood_fill(clone, map->player_x, map->player_y);
 	clone->height = map->height;
 	clone->arr_1line = NULL;
