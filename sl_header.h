@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 17:52:31 by gita              #+#    #+#             */
-/*   Updated: 2025/07/30 23:35:48 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/01 20:40:55 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_map
 
 typedef struct s_game
 {
+	t_map		*map;
 	mlx_t		*window;
 	mlx_image_t	*floor;
 	mlx_image_t	*wall;
@@ -65,7 +66,10 @@ void	count_elem(char	elem, size_t *P, size_t *E, size_t *C);
 void	player_pos(t_map *map);
 bool	is_path_avail(t_map *map);
 
-t_game	*start_game(t_map *map);
-void	load_image_n_spread_floor(t_game *game_elem, t_map *map);
-void	show_img_on_window(t_game *game_elem, t_map *map);
+void	start_game(t_game *game);
+void	load_image_n_spread_floor(t_game *game);
+void	show_instances_on_window(t_game *game);
+
+void	button_smash(mlx_key_data_t key_in_use, void *game_data);
+
 #endif
