@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 17:55:54 by gita              #+#    #+#             */
-/*   Updated: 2025/08/02 23:29:28 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/03 00:36:58 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ void	do_the_move(t_game *game, int move_x, int move_y)
 	game->map->player_x = incoming_x;
 	game->map->player_y = incoming_y;
 	move_normal(game->player, incoming_x, incoming_y);
+	game->steps++;
+	ft_putstr_fd("Steps taken: ", 1);
+	ft_putnbr_fd(game->steps, 1);
+	ft_putstr_fd("\n", 1);
 	if (incoming_tile == 'C')
 		on_collect_tile(game, incoming_x, incoming_y);
-	// else if (incoming_tile == 'E')
-	// 	on_exit_tile();
-		
-	//step_count()
-		
-
+	else if (incoming_tile == 'E')
+		on_exit_tile(game, incoming_x, incoming_y);
 }
 
 void	move_normal(mlx_image_t *the_player, int incoming_x, int incoming_y)
@@ -83,5 +83,21 @@ void	on_collect_tile(t_game *game, int x, int y)
 	game->collected_c++;
 	game->map->arr_bundle[y][x] = '0';
 	if (game->collected_c == game->map->total_c)
-		game->no_exit->instances->enabled = false;
+		mlx_image_to_window(game->window, game->exit, 
+			game->no_exit->instances->x, 
+			game->no_exit->instances->y);
+}
+
+void	on_exit_tile(t_game *game, int x, int y)
+{
+	if (game->collected_c == game->map->total_c)
+	{
+		if (game->exit->instances->x == x * TILE_SIZE &&
+		 	game->exit->instances->y == y * TILE_SIZE)	
+		{
+			free_game(game);
+			ft_putstr_fd("~~ Om nom nom nom nom ^w^ ~~\n", 1);
+			exit (0);
+		}
+	}
 }

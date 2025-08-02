@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 16:06:54 by gita              #+#    #+#             */
-/*   Updated: 2025/08/01 23:58:07 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/03 00:39:51 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,8 @@ int main(int ac, char **av)
 	check_map_extension(av[1]);
 	game_elem.map = create_map(av[1]);
 	start_game(&game_elem);
-
 	mlx_key_hook(game_elem.window, button_smash, &game_elem);
-	
 	mlx_loop(game_elem.window);
-	mlx_terminate(game_elem.window);
+	free_game(&game_elem);
 	return (0);
 }

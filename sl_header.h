@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 17:52:31 by gita              #+#    #+#             */
-/*   Updated: 2025/08/02 23:16:03 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/03 00:03:11 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,6 @@ void	button_smash(mlx_key_data_t key_used, void *param);
 void	do_the_move(t_game *game, int move_x, int move_y);
 void	move_normal(mlx_image_t *the_player, int incoming_x, int incoming_y);
 void	on_collect_tile(t_game *game, int x, int y);
+void	on_exit_tile(t_game *game, int x, int y);
 
 #endif

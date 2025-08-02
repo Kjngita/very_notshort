@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 18:29:22 by gita              #+#    #+#             */
-/*   Updated: 2025/08/02 23:29:08 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/03 00:27:48 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	start_game(t_game *game)
 		error_print_n_exit("Could not open game window X.x\n", game->map);
 	}
 	game->collected_c = 0;
+	game->steps = 0;
 	load_images(game);
 	spread_floor_instances(game);
 	show_instances_on_window(game);
@@ -98,12 +99,8 @@ void	show_instances_on_window(t_game *game)
 				mlx_image_to_window(game->window, game->wall, 
 					x * TILE_SIZE, y * TILE_SIZE);
 			if (game->map->arr_bundle[y][x] == 'E')
-			{
-				mlx_image_to_window(game->window, game->exit, 
-					x * TILE_SIZE, y * TILE_SIZE);
 				mlx_image_to_window(game->window, game->no_exit, 
 					x * TILE_SIZE, y * TILE_SIZE);
-			}
 			if (game->map->arr_bundle[y][x] == 'C')
 				mlx_image_to_window(game->window, game->collectible, 
 					x * TILE_SIZE, y * TILE_SIZE);
