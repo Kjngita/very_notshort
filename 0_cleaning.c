@@ -6,39 +6,39 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 18:22:20 by gita              #+#    #+#             */
-/*   Updated: 2025/08/01 23:39:56 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/02 21:50:31 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sl_header.h"
 
-void	clean_free(void *trash)
+void	*clean_free(void *trash)
 {
 	if (trash)
 		free (trash);
 	trash = NULL;
+	return(trash);
 }
 
-void	free_map(t_map *map)
+void	*free_map(t_map *map)
 {
 	int	i;
 
-	if (!map)
-		return ;
 	if (map->arr_bundle)
 	{
 		i = 0;
 		while (map->arr_bundle[i])
 		{
-			clean_free(map->arr_bundle[i]);
+			map->arr_bundle[i] = clean_free(map->arr_bundle[i]);
 			i++;
 		}
-		clean_free(map->arr_bundle);
+		map->arr_bundle = clean_free(map->arr_bundle);
 	}
 	if (map->arr_1line)
-		clean_free(map->arr_1line);
+		map->arr_1line = clean_free(map->arr_1line);
 	if (map)
-		clean_free(map);
+		map = clean_free(map);
+	return (NULL);
 }
 
 void	free_game(t_game *game)
@@ -46,7 +46,7 @@ void	free_game(t_game *game)
 	if (!game)
 		return ;
 	if (game->map)
-		free_map(game->map);
+		game->map = free_map(game->map);
 	if (game->floor)
 		mlx_delete_image(game->window, game->floor);
 	if (game->wall)
@@ -59,7 +59,6 @@ void	free_game(t_game *game)
 		mlx_delete_image(game->window, game->collectible);
 	if (game->window)
 		mlx_terminate(game->window);
-	clean_free(game);
 }
 
 void	error_print_n_exit(char *err_msg, t_map *map)

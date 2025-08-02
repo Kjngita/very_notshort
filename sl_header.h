@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 17:52:31 by gita              #+#    #+#             */
-/*   Updated: 2025/08/01 23:57:23 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/02 23:16:03 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_map
 	size_t	height;
 	size_t	player_x;
 	size_t	player_y;
-	size_t	C_total;
+	size_t	total_c;
 }	t_map;
 
 typedef struct s_game
@@ -43,11 +43,13 @@ typedef struct s_game
 	mlx_image_t	*exit;
 	mlx_image_t	*no_exit;
 	mlx_image_t	*collectible;
+	size_t		collected_c;
+	size_t		steps;
 }	t_game;
 
 
-void	clean_free(void *trash);
-void	free_map(t_map *map);
+void	*clean_free(void *trash);
+void	*free_map(t_map *map);
 void	free_game(t_game *game);
 void	error_print_n_exit(char *err_msg, t_map *map);
 void	close_fd_n_err_print(char *err_msg, t_map *map, int fd);
@@ -72,7 +74,9 @@ void	load_images(t_game *game);
 void	spread_floor_instances(t_game *game);
 void	show_instances_on_window(t_game *game);
 
-void	button_smash(mlx_key_data_t key_in_use, void *game_data);
+void	button_smash(mlx_key_data_t key_used, void *param);
 void	do_the_move(t_game *game, int move_x, int move_y);
+void	move_normal(mlx_image_t *the_player, int incoming_x, int incoming_y);
+void	on_collect_tile(t_game *game, int x, int y);
 
 #endif

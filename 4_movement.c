@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 17:55:54 by gita              #+#    #+#             */
-/*   Updated: 2025/08/02 00:50:26 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/02 23:29:28 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,56 +35,53 @@ void	button_smash(mlx_key_data_t key_used, void *param)
 	}
 }
 
-static char	find_out_char(t_map	*map, size_t wanted_x, size_t wanted_y)
-{
-	size_t	x;
-	size_t	y;
-
-	if (wanted_x < 0 || wanted_y < 0 || wanted_x > map->width - 1 ||
-		 wanted_y > map->height - 1)
-		return ('X');
-	y = 0;
-	while (y <= wanted_y)
-	{
-		x = 0;
-		while (x <= wanted_x)
-		{
-			if (x == wanted_x && y == wanted_y)
-				return (map->arr_bundle[y][x]);
-			x++;
-		}
-		y++;
-	}
-	return ('X');
-}
-
 void	do_the_move(t_game *game, int move_x, int move_y)
 {
-	// check future tile
-	size_t	coord_x;
-	size_t	coord_y;
-	char	incoming;
+	size_t	incoming_x;
+	size_t	incoming_y;
+	char	incoming_tile;
 
-	coord_x = game->map->player_x + move_x;
-	coord_y = game->map->player_y + move_y;
-	incoming = find_out_char(game->map, coord_x, coord_y);
-	if (incoming == 'X')
-	{
-		free_game(game);
-		error_print_n_exit("Could not find out char :(\n", game->map);
-	}
-	if (incoming == '1')
+	incoming_x = game->map->player_x + move_x;
+	incoming_y = game->map->player_y + move_y;
+	incoming_tile = game->map->arr_bundle[incoming_y][incoming_x];
+	if (incoming_tile == '1')
 		return ;
-	if (incoming == 'C')
-	{
+	game->map->player_x = incoming_x;
+	game->map->player_y = incoming_y;
+	move_normal(game->player, incoming_x, incoming_y);
+	if (incoming_tile == 'C')
+		on_collect_tile(game, incoming_x, incoming_y);
+	// else if (incoming_tile == 'E')
+	// 	on_exit_tile();
 		
-	}
-	if (incoming == 'E')
-	{
-		
-	}
-	//move_instance
+	//step_count()
 		
 
-	// ok to move -> move instance function
+}
+
+void	move_normal(mlx_image_t *the_player, int incoming_x, int incoming_y)
+{
+	the_player->instances->x = incoming_x * TILE_SIZE;
+	the_player->instances->y = incoming_y * TILE_SIZE;
+}
+
+void	on_collect_tile(t_game *game, int x, int y)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < game->map->total_c)
+	{
+		if (game->collectible->instances[i].x == x * TILE_SIZE 
+			&& game->collectible->instances[i].y == y * TILE_SIZE)
+			{
+				game->collectible->instances[i].enabled = false;
+				break ;
+			}
+		i++;
+	}
+	game->collected_c++;
+	game->map->arr_bundle[y][x] = '0';
+	if (game->collected_c == game->map->total_c)
+		game->no_exit->instances->enabled = false;
 }

@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 19:34:24 by gita              #+#    #+#             */
-/*   Updated: 2025/08/01 23:24:06 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/02 23:18:32 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ bool	is_content_good(t_map *map)
 	}
 	if (P_amount != 1 || E_amount != 1 || C_amount < 1)
 		return (false);
-	map->C_total = C_amount;
+	map->total_c = C_amount;
 	return (true);
 }
 

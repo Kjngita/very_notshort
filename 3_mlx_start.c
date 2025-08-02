@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 18:29:22 by gita              #+#    #+#             */
-/*   Updated: 2025/08/01 23:47:35 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/02 23:29:08 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,13 @@ void	start_game(t_game *game)
 	if (!game || !game->map)
 		error_print_n_exit("Could not start game -.-\n", game->map);
 	game->window = mlx_init(game->map->width * TILE_SIZE,
-		game->map->height * TILE_SIZE, "Snow Whisker", false);
+		game->map->height * TILE_SIZE, "Snow Whiskers", false);
 	if (game->window == NULL)
 	{
 		free_game(game);
 		error_print_n_exit("Could not open game window X.x\n", game->map);
 	}
+	game->collected_c = 0;
 	load_images(game);
 	spread_floor_instances(game);
 	show_instances_on_window(game);
@@ -96,12 +97,13 @@ void	show_instances_on_window(t_game *game)
 			if (game->map->arr_bundle[y][x] == '1')
 				mlx_image_to_window(game->window, game->wall, 
 					x * TILE_SIZE, y * TILE_SIZE);
-			if (game->map->arr_bundle[y][x] == 'P')
-				mlx_image_to_window(game->window, game->player, 
-					x * TILE_SIZE, y * TILE_SIZE);
 			if (game->map->arr_bundle[y][x] == 'E')
+			{
+				mlx_image_to_window(game->window, game->exit, 
+					x * TILE_SIZE, y * TILE_SIZE);
 				mlx_image_to_window(game->window, game->no_exit, 
 					x * TILE_SIZE, y * TILE_SIZE);
+			}
 			if (game->map->arr_bundle[y][x] == 'C')
 				mlx_image_to_window(game->window, game->collectible, 
 					x * TILE_SIZE, y * TILE_SIZE);
@@ -109,4 +111,6 @@ void	show_instances_on_window(t_game *game)
 		}
 		y++;
 	}
+	mlx_image_to_window(game->window, game->player,
+		game->map->player_x * TILE_SIZE, game->map->player_y * TILE_SIZE);
 }
