@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 18:22:20 by gita              #+#    #+#             */
-/*   Updated: 2025/08/04 18:37:42 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/04 18:58:08 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	free_game(t_game *game)
 void	error_print_n_exit(char *err_msg, t_map *map)
 {
 	if (map)
-		free_map(map);
+		map = free_map(map);
 	if (err_msg)
 	{
 		ft_putstr_fd("Error\n", 2);
