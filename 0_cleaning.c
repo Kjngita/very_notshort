@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 18:22:20 by gita              #+#    #+#             */
-/*   Updated: 2025/08/02 21:50:31 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/04 18:37:42 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*clean_free(void *trash)
 	if (trash)
 		free (trash);
 	trash = NULL;
-	return(trash);
+	return (trash);
 }
 
 void	*free_map(t_map *map)
@@ -76,5 +76,5 @@ void	error_print_n_exit(char *err_msg, t_map *map)
 void	close_fd_n_err_print(char *err_msg, t_map *map, int fd)
 {
 	close(fd);
-	error_print_n_exit(err_msg, map);	
+	error_print_n_exit(err_msg, map);
 }

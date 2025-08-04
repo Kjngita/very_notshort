@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 17:55:54 by gita              #+#    #+#             */
-/*   Updated: 2025/08/03 00:36:58 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/04 18:44:22 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,19 +72,19 @@ void	on_collect_tile(t_game *game, int x, int y)
 	i = 0;
 	while (i < game->map->total_c)
 	{
-		if (game->collectible->instances[i].x == x * TILE_SIZE 
+		if (game->collectible->instances[i].x == x * TILE_SIZE
 			&& game->collectible->instances[i].y == y * TILE_SIZE)
-			{
-				game->collectible->instances[i].enabled = false;
-				break ;
-			}
+		{
+			game->collectible->instances[i].enabled = false;
+			break ;
+		}
 		i++;
 	}
 	game->collected_c++;
 	game->map->arr_bundle[y][x] = '0';
 	if (game->collected_c == game->map->total_c)
-		mlx_image_to_window(game->window, game->exit, 
-			game->no_exit->instances->x, 
+		mlx_image_to_window(game->window, game->exit,
+			game->no_exit->instances->x,
 			game->no_exit->instances->y);
 }
 
@@ -92,8 +92,8 @@ void	on_exit_tile(t_game *game, int x, int y)
 {
 	if (game->collected_c == game->map->total_c)
 	{
-		if (game->exit->instances->x == x * TILE_SIZE &&
-		 	game->exit->instances->y == y * TILE_SIZE)	
+		if (game->exit->instances->x == x * TILE_SIZE
+			&& game->exit->instances->y == y * TILE_SIZE)
 		{
 			free_game(game);
 			ft_putstr_fd("~~ Om nom nom nom nom ^w^ ~~\n", 1);

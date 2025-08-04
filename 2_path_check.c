@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 19:20:09 by gita              #+#    #+#             */
-/*   Updated: 2025/08/01 23:24:16 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/04 18:41:54 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static t_map	*copy_map(t_map *map)
 	copied_map = ft_calloc(1, sizeof(t_map));
 	if (copied_map == NULL)
 		return (NULL);
-	copied_map->arr_bundle = ft_calloc(map->height + 1, sizeof (char*));
+	copied_map->arr_bundle = ft_calloc(map->height + 1, sizeof(char *));
 	if (copied_map->arr_bundle == NULL)
 	{
 		free_map(copied_map);

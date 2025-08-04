@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 19:00:34 by gita              #+#    #+#             */
-/*   Updated: 2025/08/04 18:26:27 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/04 18:38:46 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ size_t	strlen_without_nl(const char *s)
 void	check_map_too_large(t_map *map)
 {
 	int32_t	scrn_w;
-	int32_t scrn_h;
+	int32_t	scrn_h;
 	mlx_t	*mlx_test;
 
 	mlx_test = mlx_init(1, 1, "Monitor size check", false);

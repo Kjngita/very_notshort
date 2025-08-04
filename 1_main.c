@@ -6,13 +6,13 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 16:06:54 by gita              #+#    #+#             */
-/*   Updated: 2025/08/03 00:39:51 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/04 18:49:12 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sl_header.h"
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_game	game_elem;
 

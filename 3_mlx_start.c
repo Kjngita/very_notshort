@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 18:29:22 by gita              #+#    #+#             */
-/*   Updated: 2025/08/04 18:03:24 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/04 18:42:59 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	start_game(t_game *game)
 	if (!game || !game->map)
 		error_print_n_exit("Could not start game -.-\n", game->map);
 	game->window = mlx_init(game->map->width * TILE_SIZE,
-		game->map->height * TILE_SIZE, "Snow Whiskers", false);
+			game->map->height * TILE_SIZE, "Snow Whiskers", false);
 	if (game->window == NULL)
 	{
 		free_game(game);
@@ -45,7 +45,7 @@ static mlx_image_t	*load_texture(t_game *game, char *img_path)
 		return (NULL);
 	}
 	mlx_delete_texture(vessel);
-	return(product);
+	return (product);
 }
 
 void	load_images(t_game *game)
@@ -76,7 +76,7 @@ void	spread_floor_instances(t_game *game)
 		x = 0;
 		while (x < game->map->width)
 		{
-			mlx_image_to_window(game->window, game->floor, 
+			mlx_image_to_window(game->window, game->floor,
 				x * TILE_SIZE, y * TILE_SIZE);
 			x++;
 		}
@@ -96,13 +96,13 @@ void	show_instances_on_window(t_game *game)
 		while (x < game->map->width)
 		{
 			if (game->map->arr_bundle[y][x] == '1')
-				mlx_image_to_window(game->window, game->wall, 
+				mlx_image_to_window(game->window, game->wall,
 					x * TILE_SIZE, y * TILE_SIZE);
 			if (game->map->arr_bundle[y][x] == 'E')
-				mlx_image_to_window(game->window, game->no_exit, 
+				mlx_image_to_window(game->window, game->no_exit,
 					x * TILE_SIZE, y * TILE_SIZE);
 			if (game->map->arr_bundle[y][x] == 'C')
-				mlx_image_to_window(game->window, game->collectible, 
+				mlx_image_to_window(game->window, game->collectible,
 					x * TILE_SIZE, y * TILE_SIZE);
 			x++;
 		}

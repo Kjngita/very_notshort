@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 19:34:24 by gita              #+#    #+#             */
-/*   Updated: 2025/08/02 23:18:32 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/04 18:41:14 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	map_arr2d(t_map *map, char *mapfile)
 	int		fd;
 	size_t	i;
 	char	*line;
-	
+
 	fd = open(mapfile, O_RDONLY);
 	if (fd < 0)
 		close_fd_n_err_print("Map opening failed =_=\n", map, fd);
@@ -82,37 +82,36 @@ bool	is_map_enclosed(t_map *map)
 	return (true);
 }
 
-
 bool	is_content_good(t_map *map)
 {
-	size_t	P_amount;
-	size_t	E_amount;
-	size_t	C_amount;
+	size_t	p_amount;
+	size_t	e_amount;
+	size_t	c_amount;
 	size_t	i;
 
-	P_amount = 0;
-	E_amount = 0;
-	C_amount = 0;
+	p_amount = 0;
+	e_amount = 0;
+	c_amount = 0;
 	i = 0;
 	while (map->arr_1line[i])
 	{
 		if (ft_strchr("PEC01", map->arr_1line[i]) == NULL)
 			return (false);
-		count_elem(map->arr_1line[i], &P_amount, &E_amount, &C_amount);
+		count_elem(map->arr_1line[i], &p_amount, &e_amount, &c_amount);
 		i++;
 	}
-	if (P_amount != 1 || E_amount != 1 || C_amount < 1)
+	if (p_amount != 1 || e_amount != 1 || c_amount < 1)
 		return (false);
-	map->total_c = C_amount;
+	map->total_c = c_amount;
 	return (true);
 }
 
-void	count_elem(char	elem, size_t *P, size_t *E, size_t *C)
-{	
+void	count_elem(char elem, size_t *p, size_t *e, size_t *c)
+{
 	if (elem == 'P')
-		(*P)++;
+		(*p)++;
 	if (elem == 'E')
-		(*E)++;
+		(*e)++;
 	if (elem == 'C')
-		(*C)++;
+		(*c)++;
 }

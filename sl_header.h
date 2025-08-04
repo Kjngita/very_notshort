@@ -6,14 +6,12 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 17:52:31 by gita              #+#    #+#             */
-/*   Updated: 2025/08/03 00:03:11 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/04 18:45:43 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SL_HEADER_H
 # define SL_HEADER_H
-
-# include<stdio.h> //DELETEEEEEEEEE
 
 # include "MLX42/MLX42.h"
 # include "libft.h"
@@ -47,7 +45,6 @@ typedef struct s_game
 	size_t		steps;
 }	t_game;
 
-
 void	*clean_free(void *trash);
 void	*free_map(t_map *map);
 void	free_game(t_game *game);
@@ -64,7 +61,7 @@ void	map_arr2d(t_map *map, char *mapfile);
 void	map_arr1d(t_map *map);
 bool	is_map_enclosed(t_map *map);
 bool	is_content_good(t_map *map);
-void	count_elem(char	elem, size_t *P, size_t *E, size_t *C);
+void	count_elem(char elem, size_t *p, size_t *e, size_t *c);
 
 void	player_pos(t_map *map);
 bool	is_path_avail(t_map *map);
