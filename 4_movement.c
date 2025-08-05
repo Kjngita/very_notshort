@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 17:55:54 by gita              #+#    #+#             */
-/*   Updated: 2025/08/04 18:44:22 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/05 19:59:40 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	button_smash(mlx_key_data_t key_used, void *param)
 	t_game	*game_elem;
 
 	game_elem = (t_game *)param;
-	if (key_used.action == MLX_PRESS)
+	if (key_used.action == MLX_PRESS || key_used.action == MLX_REPEAT)
 	{
 		if (key_used.key == MLX_KEY_W || key_used.key == MLX_KEY_UP)
 			do_the_move(game_elem, 0, -1);
@@ -83,9 +83,12 @@ void	on_collect_tile(t_game *game, int x, int y)
 	game->collected_c++;
 	game->map->arr_bundle[y][x] = '0';
 	if (game->collected_c == game->map->total_c)
+	{
+		game->no_exit->instances->enabled = false;
 		mlx_image_to_window(game->window, game->exit,
 			game->no_exit->instances->x,
 			game->no_exit->instances->y);
+	}
 }
 
 void	on_exit_tile(t_game *game, int x, int y)

@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 19:34:24 by gita              #+#    #+#             */
-/*   Updated: 2025/08/04 18:41:14 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/05 18:35:38 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	map_arr2d(t_map *map, char *mapfile)
 
 	fd = open(mapfile, O_RDONLY);
 	if (fd < 0)
-		close_fd_n_err_print("Map opening failed =_=\n", map, fd);
+		error_print_n_exit("Map opening failed =_=\n", map);
 	map->arr_bundle = ft_calloc(map->height + 1, sizeof(char *));
 	if (!map->arr_bundle)
 		close_fd_n_err_print("Map memory alloc failed =_=\n", map, fd);

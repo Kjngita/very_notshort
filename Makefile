@@ -9,13 +9,14 @@ CFILES = 0_cleaning.c \
 O_DIR = objdir
 OFILES = $(addprefix $(O_DIR)/,$(CFILES:.c=.o))
 
-FLAGS = -Wall -Wextra -Werror
-HEADERS = -I. -I$(MLX_DIR)/include -I$(LIBFT_DIR)
-MLX_DIR = MLX42
-MLX_LIB = $(MLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
-
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
+
+FLAGS = -Wall -Wextra -Werror
+HEADERS = -I. -I$(MLX_DIR)/include -I$(LIBFT_DIR)
+
+MLX_DIR = MLX42
+MLX_LIB = $(MLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 all: $(MLX_DIR) $(LIBFT) $(NAME)
 
@@ -35,7 +36,7 @@ $(NAME): $(OFILES)
 $(O_DIR):
 	mkdir -p $@
 
-$(O_DIR)/%.o: %.c | $(O_DIR)
+$(O_DIR)/%.o: %.c sl_header.h | $(O_DIR)
 	cc $(FLAGS) -c $< -o $@ $(HEADERS)
 
 clean:

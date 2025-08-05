@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 19:00:34 by gita              #+#    #+#             */
-/*   Updated: 2025/08/04 18:38:46 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/05 18:37:05 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	get_map_size(t_map *map, char *mapfile)
 		error_print_n_exit("Could not open map file T_T\n", map);
 	line = get_next_line(fd);
 	if (line == NULL)
-		error_print_n_exit("Could not read map T_T\n", map);
+		close_fd_n_err_print("Could not read map T_T\n", map, fd);
 	map->width = strlen_without_nl(line);
 	map->height = 1;
 	while (1)
@@ -69,7 +69,7 @@ void	get_map_size(t_map *map, char *mapfile)
 		if (strlen_without_nl(line) != map->width)
 		{
 			free (line);
-			error_print_n_exit ("Map is not rectangle T_T\n", map);
+			close_fd_n_err_print("Map is not rectangle T_T\n", map, fd);
 		}
 	}
 	close(fd);
