@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 19:20:09 by gita              #+#    #+#             */
-/*   Updated: 2025/08/04 18:41:54 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/12 23:01:54 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ static t_map	*copy_map(t_map *map)
 		}
 		i++;
 	}
-	copied_map->arr_bundle[i] = NULL;
 	return (copied_map);
 }
 
@@ -85,7 +84,6 @@ bool	is_path_avail(t_map *map)
 		error_print_n_exit("Could not copy map line >_<\n", map);
 	flood_fill(clone, map->player_x, map->player_y);
 	clone->height = map->height;
-	clone->arr_1line = NULL;
 	map_arr1d(clone);
 	i = 0;
 	while (clone->arr_1line[i])

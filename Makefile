@@ -29,9 +29,9 @@ $(LIBFT):
 
 $(NAME): $(OFILES)
 	cc $(FLAGS) $(OFILES) $(LIBFT) $(MLX_LIB) -o $(NAME)
-	echo "┌───────────────────────────┐"
-	echo "│ ~~ \033[33m 🎮 Game ready! ✅ \033[0m ~~ │"
-	echo "└───────────────────────────┘"
+	@echo "┌───────────────────────────┐"
+	@echo "│ ~~ \033[33m 🎮 Game ready! ✅ \033[0m ~~ │"
+	@echo "└───────────────────────────┘"
 
 $(O_DIR):
 	mkdir -p $@
@@ -40,14 +40,18 @@ $(O_DIR)/%.o: %.c sl_header.h | $(O_DIR)
 	cc $(FLAGS) -c $< -o $@ $(HEADERS)
 
 clean:
-	rm -rf $(O_DIR) $(MLX_DIR)
-	$(MAKE) fclean -C $(LIBFT_DIR)
+	rm -rf $(O_DIR)
+	$(MAKE) clean -C $(LIBFT_DIR)
 
 fclean: clean
+	rm -rf $(MLX_DIR)
+	$(MAKE) fclean -C $(LIBFT_DIR)
 	rm -f $(NAME)
 
 re: fclean all
 
-.SILENT:
+.SECONDARY: $(OFILES)
 
 .PHONY: all clean fclean re
+
+.SILENT:

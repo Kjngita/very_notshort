@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 19:34:24 by gita              #+#    #+#             */
-/*   Updated: 2025/08/05 18:35:38 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/12 23:00:52 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	map_arr2d(t_map *map, char *mapfile)
 	int		fd;
 	size_t	i;
 	char	*line;
+	size_t	nl_char_pos;
 
 	fd = open(mapfile, O_RDONLY);
 	if (fd < 0)
@@ -30,31 +31,22 @@ void	map_arr2d(t_map *map, char *mapfile)
 		line = get_next_line(fd);
 		if (line == NULL)
 			close_fd_n_err_print("Map lines fetching failed =_=\n", map, fd);
-		line[strlen_without_nl(line)] = '\0';
-		map->arr_bundle[i] = ft_strdup(line);
-		if (map->arr_bundle[i] == NULL)
-			close_fd_n_err_print("Map coord duplicate failed =_=\n", map, fd);
+		nl_char_pos = strlen_without_nl(line);
+		line[nl_char_pos] = '\0';
+		copy_line_to_arr(map, fd, i, line);
 		free (line);
 		i++;
 	}
-	map->arr_bundle[i] = NULL;
 	close(fd);
 }
 
-void	map_arr1d(t_map *map)
+void	copy_line_to_arr(t_map *map, int fd, size_t i, char *line)
 {
-	size_t	i;
-	char	*line;
-
-	i = 0;
-	while (i < map->height)
+	map->arr_bundle[i] = ft_strdup(line);
+	if (map->arr_bundle[i] == NULL)
 	{
-		line = gnl_strjoin(map->arr_1line, map->arr_bundle[i]);
-		if (line == NULL)
-			error_print_n_exit("Could not copy map line =_=\n", map);
-		free(map->arr_1line);
-		map->arr_1line = line;
-		i++;
+		free (line);
+		close_fd_n_err_print("Map coord duplicate failed =_=\n", map, fd);
 	}
 }
 

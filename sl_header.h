@@ -6,7 +6,7 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 17:52:31 by gita              #+#    #+#             */
-/*   Updated: 2025/08/04 18:45:43 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/12 22:41:03 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,14 @@ void	free_game(t_game *game);
 void	error_print_n_exit(char *err_msg, t_map *map);
 void	close_fd_n_err_print(char *err_msg, t_map *map, int fd);
 
-t_map	*create_map(char *mapfile);
 void	check_map_extension(char *mapname);
+t_map	*create_map(char *mapfile);
 void	get_map_size(t_map *map, char *mapfile);
 void	check_map_too_large(t_map *map);
 size_t	strlen_without_nl(const char *s);
 
 void	map_arr2d(t_map *map, char *mapfile);
+void	copy_line_to_arr(t_map *map, int fd, size_t i, char *line);
 void	map_arr1d(t_map *map);
 bool	is_map_enclosed(t_map *map);
 bool	is_content_good(t_map *map);

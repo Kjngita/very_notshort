@@ -44,7 +44,7 @@ CFLAGS = -Wall -Wextra -Werror
 $(NAME): $(OFILES)
 	ar -rcs $@ $^
 
-all: $(NAME) clean
+all: $(NAME)
 
 %.o: %.c
 	cc $(CFLAGS) -c $^

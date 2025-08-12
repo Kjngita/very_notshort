@@ -6,22 +6,11 @@
 /*   By: gita <gita@student.hive.fi>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 19:00:34 by gita              #+#    #+#             */
-/*   Updated: 2025/08/05 18:37:05 by gita             ###   ########.fr       */
+/*   Updated: 2025/08/12 22:49:32 by gita             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sl_header.h"
-
-void	check_map_extension(char *mapname)
-{
-	int		end;
-	char	*extension;
-
-	end = ft_strlen(mapname) - 4;
-	extension = ".ber";
-	if (ft_strncmp(mapname + end, extension, 4) != 0)
-		error_print_n_exit("Wrong map extension >_<\n", NULL);
-}
 
 t_map	*create_map(char *mapfile)
 {
@@ -30,8 +19,6 @@ t_map	*create_map(char *mapfile)
 	map = ft_calloc(1, sizeof(t_map));
 	if (map == NULL)
 		error_print_n_exit("Map creation failed T_T\n", map);
-	map->arr_bundle = NULL;
-	map->arr_1line = NULL;
 	get_map_size(map, mapfile);
 	map_arr2d(map, mapfile);
 	map_arr1d(map);
@@ -87,6 +74,23 @@ size_t	strlen_without_nl(const char *s)
 	return (i);
 }
 
+void	map_arr1d(t_map *map)
+{
+	size_t	i;
+	char	*line;
+
+	i = 0;
+	while (i < map->height)
+	{
+		line = gnl_strjoin(map->arr_1line, map->arr_bundle[i]);
+		if (line == NULL)
+			error_print_n_exit("Could not copy map line =_=\n", map);
+		free(map->arr_1line);
+		map->arr_1line = line;
+		i++;
+	}
+}
+
 void	check_map_too_large(t_map *map)
 {
 	int32_t	scrn_w;
@@ -94,6 +98,8 @@ void	check_map_too_large(t_map *map)
 	mlx_t	*mlx_test;
 
 	mlx_test = mlx_init(1, 1, "Monitor size check", false);
+	if (mlx_test == NULL)
+		error_print_n_exit("Monitor size check window failed to open\n", map);
 	mlx_get_monitor_size(0, &scrn_w, &scrn_h);
 	mlx_terminate(mlx_test);
 	if ((int32_t)map->width * TILE_SIZE > scrn_w
